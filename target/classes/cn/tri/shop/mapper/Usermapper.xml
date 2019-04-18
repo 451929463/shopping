@@ -3,6 +3,9 @@
  <mapper namespace="cn.tri.shop.mapper.UserMapper">
  	<insert id="addUser" parameterType="cn.tri.shop.pojo.User">
  		insert into user(uname,upwd,email,sex,realname,phonenum,activenum,activestatus) values
- 		(#{user.uname},#{user.upwd},#{user.email},#{user.sex},#{user.realname},#{user.phonenum},#{user.activenum},#{user.activestatus})
+ 		(#{uname},#{upwd},#{email},#{sex},#{realname},#{phonenum},#{activenum},#{activestatus})
  	</insert>
+ 	<!-- <select id="findID" parameterType="cn.tri.shop.pojo.User">
+ 		select * from user where 
+ 	</select> -->
 </mapper>

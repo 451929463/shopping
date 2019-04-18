@@ -8,8 +8,8 @@ public class User {
 	private String email ;
 	private String sex ;
 	private String realname ;
-	
-	private int phonenum ;
+				
+	private String phonenum ;
 	private int activenum ;
 	private boolean activestatus ;
 	public int getUid() {
@@ -48,10 +48,10 @@ public class User {
 	public void setRealname(String realname) {
 		this.realname = realname;
 	}
-	public int getPhonenum() {
+	public String getPhonenum() {
 		return phonenum;
 	}
-	public void setPhonenum(int phonenum) {
+	public void setPhonenum(String phonenum) {
 		this.phonenum = phonenum;
 	}
 	public int getActivenum() {
@@ -72,7 +72,7 @@ public class User {
 		super();
 	}
 	public User(int uid, String uname, String upwd, String email, String sex,
-			String realname, int phonenum, int activenum, boolean activestatus) {
+			String realname, String phonenum, int activenum, boolean activestatus) {
 		super();
 		this.uid = uid;
 		this.uname = uname;
