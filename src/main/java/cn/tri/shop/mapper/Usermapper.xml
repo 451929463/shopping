@@ -5,7 +5,13 @@
  		insert into user(uname,upwd,email,sex,realname,phonenum,activenum,activestatus) values
  		(#{uname},#{upwd},#{email},#{sex},#{realname},#{phonenum},#{activenum},#{activestatus})
  	</insert>
- 	<!-- <select id="findID" parameterType="cn.tri.shop.pojo.User">
- 		select * from user where 
- 	</select> -->
+ 	<select id="loginUser" parameterType="cn.tri.shop.pojo.User" resultType="cn.tri.shop.pojo.User">
+ 		select uname,activestatus,email from user where uname=#{uname} and upwd=#{upwd}
+ 	</select>
+ 	<update id="activeUser" parameterType="cn.tri.shop.pojo.User">
+ 		update user set activestatus=1 where email=#{email} and activenum=#{activenum}	
+ 	</update>
+ 	<select id="checkActive" parameterType="cn.tri.shop.pojo.User" resultType="int">
+ 		select count(*) from user where email=#{email} and activestatus=1
+ 	</select>
 </mapper>

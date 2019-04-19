@@ -11,7 +11,8 @@ public class User {
 				
 	private String phonenum ;
 	private int activenum ;
-	private boolean activestatus ;
+	private int activestatus ;
+	
 	public int getUid() {
 		return uid;
 	}
@@ -60,10 +61,10 @@ public class User {
 	public void setActivenum(int activenum) {
 		this.activenum = activenum;
 	}
-	public boolean isActivestatus() {
+	public int getActivestatus() {
 		return activestatus;
 	}
-	public void setActivestatus(boolean activestatus) {
+	public void setActivestatus(int activestatus) {
 		this.activestatus = activestatus;
 	}
 	
@@ -72,7 +73,7 @@ public class User {
 		super();
 	}
 	public User(int uid, String uname, String upwd, String email, String sex,
-			String realname, String phonenum, int activenum, boolean activestatus) {
+			String realname, String phonenum, int activenum, int activestatus) {
 		super();
 		this.uid = uid;
 		this.uname = uname;

@@ -21,4 +21,23 @@ public class UserServiceImpl implements UserService{
 		userMapper.addUser(user);
 	}
 
+
+	@Override
+	public User loginUser(User user) {
+		User u = userMapper.loginUser(user);
+		return u;
+	}
+
+
+	@Override
+	public void activeUser(User user) {
+		userMapper.activeUser(user);
+	}
+
+
+	@Override
+	public int checkActive(User user) {
+		return userMapper.checkActive(user);
+	}
+
 }

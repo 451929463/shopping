@@ -19,10 +19,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-
+	<meta http-equiv="refresh" content="3;url=/shopping/index.jsp">
+	<style type="text/css">
+		font{
+			background: red;
+		}
+	</style>
   </head>
   
   <body>
-    This is my JSP page. <br>
+    <font> ${requestScope.status }</font>
+    <font> ${requestScope.activeStatus } </font>
   </body>
 </html>
