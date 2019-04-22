@@ -1,5 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -15,6 +15,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
+	<meta http-equiv="Pragma" content="no-cache">
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
@@ -72,19 +73,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	});
   </script>
   <body>
-	       
-   
-	        <c:set var="uname" value="${requestScope.uname}"/>
-	        
-        	<c:if test="${empty uname}">
-        		 <a href="#" id="login">请登陆</a>
-	        	 <a href="#" id="reg">注册</a>
-        	</c:if>
-        	<c:if test="${not empty uname }">
-        		${requestScope.uname }	你好
-	        <a href="#" id="loginOut">退出</a>
-        	</c:if>
-       
+  		//requestScope.user:${requestScope.user }
+  		<br>============================================================<br>
+  		//sessionScope.user:${sessionScope.user }
+  		<c:if test="${empty sessionScope.user }">
+  			<a id="login" href="#">登陆</a><a id="reg" href="#">注册</a>
+  		</c:if>
+  		<c:if test="${not empty sessionScope.user }">
+  			<c:out value="${sessionScope.user.uname }"></c:out>,你好 <a id="loginOut" href="/shopping/admin/loginOut.action">退出</a>
+  		</c:if>
+  		
   		<div class="user">
 			<form action="admin/addUser.action" method="post">
 				<!-- 用户ID<input type="text" name="uid" value="1"><br> -->
@@ -101,8 +99,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		<div class="login">
 			<form action="admin/loginUser.action" method="post">
-				用&nbsp户&nbsp名<input type="text" name="uname" value="root"> <br>
-				密&nbsp&nbsp&nbsp码&nbsp&nbsp<input type="text" name="upwd" value="123"> <br>
+				用&nbsp户&nbsp名<input type="text" name="uname" value="admin"> <br>
+				密&nbsp&nbsp&nbsp码&nbsp&nbsp<input type="text" name="upwd" value="root"> <br>
 				<input type="submit" value="登陆" >
 				<button class="cancel" type="button">取消</button>
 			</form>
