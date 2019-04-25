@@ -16,10 +16,10 @@ public class Test1 {
 		SimpleEmail email = new SimpleEmail(); 
 		email.setHostName("smtp.163.com");
 		email.setCharset("utf-8");
-		email.addTo("xuan199511@qq.com","as");
+		email.addTo("451929463@qq.com","as");
 		email.setFrom("xuan199511@163.com","admin");
 		email.setAuthentication("xuan199511@163.com","admin1995");//stqhpsbcaoqrbgha
-		email.setSubject("激活账号");
+		email.setSubject("激活账号11111111111111111");
 		email.setMsg("email内容");
 		email.send();//发送
 	}

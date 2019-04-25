@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -57,8 +58,52 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		position: relative;
 		left:100px;
 	}
+	#login{
+		position: absolute;
+		top:15px;
+		right: 200px;
+	}
+	#reg{
+		position: absolute;
+		top:15px;
+		right: 150px;
+	}
+	font{
+		position: absolute;
+		top:15px;
+		right: 250px;
+	}
+	#loginOut{
+		position: absolute;
+		top:15px;
+		right: 200px;
+	}
 </style>
   <script type="text/javascript">
+  window.onload=function(){
+		$.ajax({
+				type:"get",
+				url:"typeCommodity/findAll.action",
+				dataType:"json",
+			/* 	contentType: "application/json;charset=utf-8", */
+				data:"",
+				success:function(data){
+					alert("success");
+					var arr = eval(data);
+					alert(arr.length);
+					/* for(var i = 0 ; i < arr.length ; i++ ){
+						alert(arr[i]);
+					} */
+					for(var type in arr){
+						var ul = document.getElementsByTagName("ul");
+						alert(type+"---"+arr[type].tname+"---"+arr[type].tid);
+					}
+				},
+				error:function(){
+					alert("error");
+				}
+			});
+		}
   	$(document).ready(function(){
   		$("#reg").click(function(){
   			$(".user").show();
@@ -70,17 +115,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			$(".user").hide();
   			$(".login").hide();
   		});
+  		
   	});
   </script>
   <body>
-  		//requestScope.user:${requestScope.user }
-  		<br>============================================================<br>
-  		//sessionScope.user:${sessionScope.user }
+  		<img alt="shop" src="img/logo.jpg" height="70px">
   		<c:if test="${empty sessionScope.user }">
   			<a id="login" href="#">登陆</a><a id="reg" href="#">注册</a>
   		</c:if>
   		<c:if test="${not empty sessionScope.user }">
-  			<c:out value="${sessionScope.user.uname }"></c:out>,你好 <a id="loginOut" href="/shopping/admin/loginOut.action">退出</a>
+  			<font><c:out value="${sessionScope.user.uname }"></c:out>,你好</font> <a id="loginOut" href="/shopping/admin/loginOut.action">退出</a>
   		</c:if>
   		
   		<div class="user">
@@ -99,12 +143,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		<div class="login">
 			<form action="admin/loginUser.action" method="post">
-				用&nbsp户&nbsp名<input type="text" name="uname" value="admin"> <br>
-				密&nbsp&nbsp&nbsp码&nbsp&nbsp<input type="text" name="upwd" value="root"> <br>
+				用&nbsp户&nbsp名<input type="text" name="uname" value="${cookie.uname.value}"> <br>
+				密&nbsp&nbsp&nbsp码&nbsp&nbsp<input type="text" name="upwd"> <br>
+				<input type="checkbox" name="whether" value="ok">是否保存用户名
 				<input type="submit" value="登陆" >
 				<button class="cancel" type="button">取消</button>
 			</form>
 		</div>
+
+		<a id="findAll" href="typeCommodity/findAll.action">findAll</a>
+		${fn:length(requestScope.list)}
+		<c:forEach items="${requestScope.list }" var="typeCommodity">
+				${typeCommodity.tname}
+		</c:forEach>
+		<ul>
+			<li>热销</li>
+		</ul>
+		
 </body>
 </html>
 
