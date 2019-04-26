@@ -30,7 +30,6 @@ public class TypeCommodityServlet {
 		System.out.println(list);
 		Gson gson = new Gson();
 		String commoditys = gson.toJson(list);
-		System.out.println(commoditys);
 		return commoditys;
 	}
 }

@@ -58,6 +58,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		position: relative;
 		left:100px;
 	}
+	#seller{
+		position: absolute;
+		top:15px;
+		right: 250px;
+	}
 	#login{
 		position: absolute;
 		top:15px;
@@ -78,6 +83,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		top:15px;
 		right: 200px;
 	}
+	li{
+		margin:0 auto;
+		cursor:pointer;
+		background-color:red;
+		list-style:none;
+		float: left;
+		display: inline-block;
+		//width: 250px;
+		height: 60px;
+		text-align: center;
+		line-height: 60px;
+	}
+	
 </style>
   <script type="text/javascript">
   window.onload=function(){
@@ -88,16 +106,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			/* 	contentType: "application/json;charset=utf-8", */
 				data:"",
 				success:function(data){
-					alert("success");
 					var arr = eval(data);
-					alert(arr.length);
-					/* for(var i = 0 ; i < arr.length ; i++ ){
-						alert(arr[i]);
-					} */
+					var len = arr.length;
 					for(var type in arr){
-						var ul = document.getElementsByTagName("ul");
-						alert(type+"---"+arr[type].tname+"---"+arr[type].tid);
+						var $li = $("<a href=commodity/findByTid?tid='"+arr[type].tid+"'><li>"+arr[type].tname+"</li></a>");
+						$("ul").append($li);
 					}
+					$("li").css("width",1300/len);
 				},
 				error:function(){
 					alert("error");
@@ -115,11 +130,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			$(".user").hide();
   			$(".login").hide();
   		});
-  		
+  		$("ul").delegate("li","mouseover",function(){
+			$(this).css("background-color","blue");
+		});
+  		$("ul").delegate("li","mouseout",function(){
+  			$(this).css("background-color","red");
+  		});
+ 		/* $("ul").delegate("li","click",function(){
+ 			$.ajax({
+ 				url:"",
+ 				type:"get",
+ 				dataType:"json",
+ 				data:"",
+ 				success:function(){
+ 					
+ 				},
+ 				error:function(){
+ 					
+ 				}
+ 				
+ 			});
+ 		}); */
   	});
   </script>
   <body>
   		<img alt="shop" src="img/logo.jpg" height="70px">
+  		<a id="seller" href="seller.jsp">后台管理</a>
   		<c:if test="${empty sessionScope.user }">
   			<a id="login" href="#">登陆</a><a id="reg" href="#">注册</a>
   		</c:if>
@@ -150,16 +186,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<button class="cancel" type="button">取消</button>
 			</form>
 		</div>
-
-		<a id="findAll" href="typeCommodity/findAll.action">findAll</a>
-		${fn:length(requestScope.list)}
 		<c:forEach items="${requestScope.list }" var="typeCommodity">
 				${typeCommodity.tname}
 		</c:forEach>
-		<ul>
-			<li>热销</li>
-		</ul>
-		
+		<ul></ul>
 </body>
 </html>
 
