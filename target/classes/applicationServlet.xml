@@ -8,9 +8,13 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 	<context:component-scan base-package="cn.tri.shop.servlet"></context:component-scan>
 	<mvc:annotation-driven></mvc:annotation-driven>
-	<bean id="" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<bean id="resourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/"></property>
 		<property name="suffix" value=".jsp"></property>
 	</bean>
-
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="utf-8"></property>
+		<property name="maxUploadSize" value="10240000"></property>
+		<property name="maxInMemorySize" value="666666"></property>
+	</bean>
 </beans>

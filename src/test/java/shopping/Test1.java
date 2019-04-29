@@ -23,4 +23,12 @@ public class Test1 {
 		email.setMsg("email内容");
 		email.send();//发送
 	}
+	@Test
+	public void test2(){
+		String ss = "123.456.789";
+		String[] arr = ss.split("\\.");
+		for (int i = 0; i < arr.length; i++) {
+			System.out.println(arr[i]);
+		}
+	}
 }

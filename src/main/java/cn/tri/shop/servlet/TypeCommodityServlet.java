@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,11 +27,12 @@ public class TypeCommodityServlet {
 	}
 	@RequestMapping(value="/findAll.action",produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public String findAll() throws IOException{
+	public String findAll(HttpServletRequest req) throws IOException{
 		List<TypeCommodity> list = typeCommodityService.findAll();
-		System.out.println(list);
+		req.getSession().setAttribute("list", list);
 		Gson gson = new Gson();
 		String commoditys = gson.toJson(list);
 		return commoditys;
 	}
+
 }

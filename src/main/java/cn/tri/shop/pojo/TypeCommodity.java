@@ -1,5 +1,7 @@
 package cn.tri.shop.pojo;
 
+import java.io.Serializable;
+
 public class TypeCommodity {
 	private int tid ;
 	private String tname ;
