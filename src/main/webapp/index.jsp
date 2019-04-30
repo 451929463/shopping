@@ -106,7 +106,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			/* 	contentType: "application/json;charset=utf-8", */
 				data:"",
 				success:function(data){
-					var arr = eval(data);
+					var arr = data;
 					var len = arr.length;
 					for(var type in arr){
 						var $li = $("<a href=commodity/findByTid?tid='"+arr[type].tid+"'><li>"+arr[type].tname+"</li></a>");
