@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><!--xxMapper.xml-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="cn.tri.shop.mapper.CommodityMapper">
+ 	<select id="findBytid" parameterType="int" resultType="cn.tri.shop.pojo.Commodity">
+ 		select * from commodity where t_id = #{tid}
+ 	</select>
+ 	<insert id="addCommodity" parameterType="cn.tri.shop.pojo.Commodity">
+ 		insert into commodity(cname,info,marketPrice,shopPrice,pictrueAddress,hot,putaway,t_id) values
+ 		(#{cname},#{info},#{marketPrice},#{shopPrice},#{pictrueAddress},#{hot},#{putaway},#{t_id})
+ 	</insert>
+ 	<select id="findBycid" parameterType="int" resultType="cn.tri.shop.pojo.Commodity">
+ 		select * from commodity where cid = #{id}
+ 	</select>
+ 	<select id="findByHot" parameterType="int" resultType="cn.tri.shop.pojo.Commodity">
+ 		select * from commodity where hot = #{hot}
+ 	</select>
+ 	<update id="alterCommodity" parameterType="cn.tri.shop.pojo.Commodity">
+ 		update commodity set cid = #{cid} 
+ 		<if test="#{cname} != null">
+ 			,cname = #{cname}
+ 		</if>
+ 		<if test="#{info} != null">
+ 			,info = #{info}
+ 		</if>
+ 		where cid=#{cid}
+ 	</update>
+ 	<delete id="deleteCommodity" parameterType="int">
+ 		delete from commodity where cid=#{cid}
+ 	</delete>
+</mapper>
