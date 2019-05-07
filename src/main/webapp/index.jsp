@@ -1,9 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
-<!-- 动态包含 -->
-<jsp:include page="index1.jsp"></jsp:include>
+<%@ include file="index1.jsp" %>
 <%-- <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -37,28 +35,46 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			float: left;
 		}
 		#p{
-			width: 10000px;
+			cursor:pointer;
+			width: 8000px;
 			height: 350px;
 			background: white;
 		}
 		#p_show{
-			width: 500px;
+			width: 1000px;
 			height: 350px;
-			margin: 100px auto;
-			border: 1px solid red;
+			margin: 5px auto;
+			/* border: 1px solid red; */
 			overflow: hidden;
 		}
+		
 	</style>
   </head>
  	<script type="text/javascript">
  		$(function(){
+ 			$.ajax({
+				url:"commodity/findByHot.action?hot=1",
+				type:"get",
+				data:"",
+				dataType:"json",
+				success:function(data){
+					for(var index in data){
+						var $p = $("<p class='hot_show' onclick='findBycid("+data[index].cid+")'><img class='hotCommondity' src='/commodity/"+data[index].pictrueAddress+"'></img></p>");
+						$("#p").append($p);
+					}
+				},
+				error:function(){
+					alert("服务器维护");
+				}
+			});
+ 			
  			var offset = 0;
  			var timer ;
  			//图片滚动 效果
  			function autoplay(){
  				timer = setInterval(function(){
  					offset += -10;
- 					if(offset <= -10000){
+ 					if(offset <= -7000){
  						offset = 0;
  					}
  					$("#p").css("margin-left",offset);
@@ -72,20 +88,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				$(this).fadeTo(100,1);
 			});
  			$("#p").delegate(".hot_show","mouseout",function(){
- 				aotoplay();
-				//$(".hot_show").fadeTo(100,1);
+ 				autoplay();
+				$(".hot_show").fadeTo(100,1);
 			});
- 			
- 			
- 			/* $(".hot_show").hover(function(){
-				clearInterval(timer);
-				$(this).siblings().fadeTo(100,0.5);
-				$(this).fadeTo(100,1);
-			},function(){
-				aotoplay();
-				$("li").fadeTo(100,1);
-			}); */
  		});
+ 		function findBycid(cid){
+ 			$.ajax({
+ 				url:"commodity/findBycid.action?cid="+cid,
+ 				type:"get",
+ 				data:"",
+ 				dataType:"json",
+ 				success:function(data){
+ 					alert(data);
+ 				},
+ 				error:function(){
+ 					alert("findBycid error");
+ 				}
+ 			});
+ 			
+ 		}
  	</script>
   <body>
 	<div id="content">

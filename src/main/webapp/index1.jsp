@@ -99,46 +99,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		width: 500px;
 		height: 350px;
 	}
+	#type_ul{
+		position: relative;
+		left:25px;
+	}
 </style>
   <script type="text/javascript">
-  window.onload=function(){
-		$.ajax({
-				type:"get",
-				url:"typeCommodity/findAll.action",
-				dataType:"json",
-			/* 	contentType: "application/json;charset=utf-8", */
-				data:"",
-				success:function(data){
-					var arr = data;
-					var len = arr.length;
-					for(var type in arr){
-						var $li = $("<a href=commodity/findByTid?tid='"+arr[type].tid+"'><li>"+arr[type].tname+"</li></a>");
-						$("ul").append($li);
-					}
-					$("li").attr("class","li_Type");
-					$("li").css("width",1300/len);
-				},
-				error:function(){
-					alert("error");
-				}
-			});
-			$.ajax({
-				url:"commodity/findByHot.action?hot=1",
-				type:"get",
-				data:"",
-				dataType:"json",
-				success:function(data){
-					for(var index in data){
-						var $p = $("<p class='hot_show'><img class='hotCommondity' src='/commodity/"+data[index].pictrueAddress+"'></img></p>")
-						$("#p").append($p);
-					}
-				},
-				error:function(){
-					alert("服务器维护");
-				}
-			});
-		}
   	$(document).ready(function(){
+  		$.ajax({
+			type:"get",
+			url:"typeCommodity/findAll.action",
+			dataType:"json",
+		/* 	contentType: "application/json;charset=utf-8", */
+			data:"",
+			success:function(data){
+				var arr = data;
+				var len = arr.length;
+				for(var type in arr){
+					var $li = $("<a href=commodity/findByTid?tid='"+arr[type].tid+"'><li>"+arr[type].tname+"</li></a>");
+					$("ul").append($li);
+				}
+				$("li").attr("class","li_Type");
+				$("li").css("width",1300/len);
+			},
+			error:function(){
+				alert("error");
+			}
+		});
+  		
   		$("#reg").click(function(){
   			$(".user").show();
   		});
@@ -156,12 +144,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			$(this).css("background-color","red");
   		});
   	});
-  	function tes(){
-  		$("#content").html("<h1><b>hello html</b></h1>");
-  	}
   </script>
   <body>
-  		<button onclick="tes()">123</button>
   		<img alt="shop" src="img/logo.jpg" height="70px">
   		<a id="seller" href="seller.jsp">后台管理</a>
   		<c:if test="${empty sessionScope.user }">
@@ -197,7 +181,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<c:forEach items="${requestScope.list }" var="typeCommodity">
 				${typeCommodity.tname}
 		</c:forEach>
-		<ul></ul>
+		<ul id="type_ul"></ul>
 </body>
 </html>
 

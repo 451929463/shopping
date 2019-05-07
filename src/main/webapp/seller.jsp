@@ -21,6 +21,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
 	<style type="text/css">
+		body,html{
+			margin: 0;
+			padding: 0;
+		}
 		#top{
 			width:100%;
 			height:10%;
@@ -90,16 +94,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		#alter_value{
 			display: none;
 		}
-		
+		#logo{
+			float: left;
+		}
+		#logo{
+  			width:187px;
+  			height:70px;
+  		}
 	</style>
   </head>
   <script type="text/javascript" src="js/jquery-3.1.1.js" ></script>
   <script type="text/javascript" src="js/updateimg.js" ></script>
   
   <script type="text/javascript">
-  		window.onload=function(){
-  			$.get("typeCommodity/sessionFindAll.action");
-  		};
   		$(document).ready(function(){
   			$("#first").click(function(){
   				upload_hide();
@@ -199,8 +206,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		function upload_hide() {
   			$("#upload_value").hide();
 		}
+  		
+  		
   </script>
   <body>
+  		<a href="index.jsp"><img id="logo" src="img/logo.jpg"></a>
   		<div id="top"><p><font size="30px">后台管理</font></p></div>
   		<div id="left">
   			<p id="first">商品管理</p>
