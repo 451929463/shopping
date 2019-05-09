@@ -1,10 +1,12 @@
 package cn.tri.shop.mapper;
 
 import java.util.List;
+
 import cn.tri.shop.pojo.Commodity;
+import cn.tri.shop.pojo.ParamLimit;
 
 public interface CommodityMapper {
-	public List<Commodity> findBytid(int tid);
+	public List<Commodity> findBytid(ParamLimit pl);
 	public void addCommodity(Commodity commodity);
 	public Commodity findBycid(int id);
 	public void alterCommodity(Commodity commodity);

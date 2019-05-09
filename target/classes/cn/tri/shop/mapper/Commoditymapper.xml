@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?><!--xxMapper.xml-->
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="cn.tri.shop.mapper.CommodityMapper">
- 	<select id="findBytid" parameterType="int" resultType="cn.tri.shop.pojo.Commodity">
- 		select * from commodity where t_id = #{tid}
+ 	<select id="findBytid" parameterType="cn.tri.shop.pojo.ParamLimit" resultType="cn.tri.shop.pojo.Commodity">
+ 		select * from commodity where t_id = #{tid} limit #{index},#{size}
  	</select>
  	<insert id="addCommodity" parameterType="cn.tri.shop.pojo.Commodity">
  		insert into commodity(cname,info,marketPrice,shopPrice,pictrueAddress,hot,putaway,t_id) values

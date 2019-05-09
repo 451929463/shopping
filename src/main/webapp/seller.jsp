@@ -124,7 +124,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	  				data:"",
   	  				success:function(data){
   	  					$(data).each(function(){
-  	  						$("ul").append("<a onclick='findByTid("+this.tid+")'><li>"+this.tname+"管理</li></a>");
+  	  						$("ul").append("<a onclick='findByTid("+this.tid+",1,10)'><li>"+this.tname+"管理</li></a>");
   	  					});
   	  				},
   	  				error:function(){
@@ -144,15 +144,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				$("#upload_value").show();
 			});
   		});
-  		function findByTid(tid){
+  		function findByTid(tid,index,size){
   			alterNO();
 			//获取tr之后的所有兄弟标签，并删除。
   			$(".tr").nextAll().remove();
   			$.ajax({
-  				type:"get",
-  				url:"commodity/findBytid.action?tid="+tid,
+  				type:"post",
+  				url:"commodity/findBytid.action",
   				dataType:"json",
-  				data:"",
+  				data:{"tid":tid,"index":index,"size":size},
   				success:function(data){
   					if(data.length > 0){
   						for(var index in data){
@@ -168,6 +168,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   									"</td><td class='pointer' onclick='alter("+data[index].cid+")'>编辑</td><td class='pointer'><a href='commodity/deleteCommodity.action?cid="+data[index].cid+"&t_id="+data[index].t_id+"'>删除</a></td></tr>");
   							$("table").append($tr);                          
   						}
+  						
   						$("table").prop("class","show");
   					}
   				},
@@ -176,6 +177,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   				}
   			});
   		}
+  
   		function alter(cid){
   			 $.ajax({
   				type:"get",
@@ -235,7 +237,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  				<input type="reset" value="重置">
 	  			</form>
   			</div>
-  			
+  			<div id="table">
   			<table class="hidd">
   				<tr class="tr">
   					<td>序号</td>
@@ -250,7 +252,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   					<td>修改</td>
   					<td>删除</td>
   				</tr>
-  			</table>
+  				</table>
+  				<button id="btn" class="hidd">下一页</button>
+  			</div> 
   			
   			<div id="alter_value">
 			<form action="commodity/alterCommodity.action" method="post" enctype="multipart/form-data">

@@ -20,10 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="Pragma" content="no-cache">
 	<script type="text/javascript" src="js/jquery-3.1.1.js" ></script>
 	<style type="text/css">
-		*{
-			margin: 0;
-			padding: 0;
-		}
+		
 		#content{
 			position:absolute;
 			top:150px;
@@ -59,7 +56,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				dataType:"json",
 				success:function(data){
 					for(var index in data){
-						var $p = $("<p class='hot_show' onclick='findBycid("+data[index].cid+")'><img class='hotCommondity' src='/commodity/"+data[index].pictrueAddress+"'></img></p>");
+						var $p = $("<a href='commodity/findBycid.action?cid="+data[index].cid+"'><p class='hot_show'><img class='hotCommondity' src='/commodity/"+data[index].pictrueAddress+"'></img></p>");
 						$("#p").append($p);
 					}
 				},
@@ -92,7 +89,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				$(".hot_show").fadeTo(100,1);
 			});
  		});
- 		function findBycid(cid){
+ 		/* function findBycid(cid){
  			$.ajax({
  				url:"commodity/findBycid.action?cid="+cid,
  				type:"get",
@@ -106,7 +103,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  				}
  			});
  			
- 		}
+ 		} */
  	</script>
   <body>
 	<div id="content">

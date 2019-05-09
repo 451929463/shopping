@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import cn.tri.shop.mapper.CommodityMapper;
 import cn.tri.shop.pojo.Commodity;
+import cn.tri.shop.pojo.ParamLimit;
 import cn.tri.shop.service.CommodityService;
 @Service("commodityServiceImpl")
 public class CommodityServiceImpl implements CommodityService{
@@ -18,10 +19,10 @@ public class CommodityServiceImpl implements CommodityService{
 		this.commodityMapper = commodityMapper;
 	}
 
-
 	@Override
-	public List<Commodity> findBytid(int tid) {
-		return commodityMapper.findBytid(tid);
+	public List<Commodity> findBytid(int tid,int index,int size) {
+		ParamLimit pl = new ParamLimit(tid, index, size);
+		return commodityMapper.findBytid(pl);
 	}
 
 

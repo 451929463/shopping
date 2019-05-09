@@ -30,6 +30,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script type="text/javascript" src="js/bootstrap.js" ></script>
   </head>
   <style>
+  	*{
+			margin: 0;
+			padding: 0;
+		}
 	.user{
 	    position: fixed;
 	    top: 80px;
@@ -41,6 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    background-color: white;
 	    width: 220px ;
 	    height: 250px ;
+	    z-index: 100;
 	}
 	.login{
 		position: fixed;
@@ -53,6 +58,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    background-color: white;
 	    width: 220px ;
 	    height: 250px ;
+	    z-index: 100;
 	}
 	.cancel{
 		position: relative;
@@ -61,7 +67,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	#seller{
 		position: absolute;
 		top:15px;
-		right: 250px;
+		right: 350px;
 	}
 	#login{
 		position: absolute;
@@ -73,7 +79,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		top:15px;
 		right: 150px;
 	}
-	font{
+	#scope_value{
 		position: absolute;
 		top:15px;
 		right: 250px;
@@ -146,13 +152,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	});
   </script>
   <body>
-  		<img alt="shop" src="img/logo.jpg" height="70px">
+  		<a href="index.jsp"><img alt="shop" src="img/logo.jpg" height="70px"></a>
   		<a id="seller" href="seller.jsp">后台管理</a>
   		<c:if test="${empty sessionScope.user }">
   			<a id="login" href="#">登陆</a><a id="reg" href="#">注册</a>
   		</c:if>
   		<c:if test="${not empty sessionScope.user }">
-  			<font><c:out value="${sessionScope.user.uname }"></c:out>,你好</font> <a id="loginOut" href="/shopping/admin/loginOut.action">退出</a>
+  			<font id="scope_value"><c:out value="${sessionScope.user.uname }"></c:out>,你好</font> <a id="loginOut" href="/shopping/admin/loginOut.action">退出</a>
   		</c:if>
   		
   		<div class="user">

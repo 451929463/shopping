@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -33,11 +34,12 @@ public class CommodityServlet {
 	public void setCommodityService(CommodityService commodityService) {
 		this.commodityService = commodityService;
 	}
-
+	
 	@RequestMapping(value="/findBytid.action",produces="application/json; charset=utf-8")
 	@ResponseBody
-	public String findBytid(@RequestParam String tid){
-		List<Commodity> commoditys = commodityService.findBytid(Integer.parseInt(tid));
+	public String findBytid(@RequestParam int tid,@RequestParam int index,@RequestParam int size){
+		System.out.println(tid+"---"+index+"---"+size);
+		List<Commodity> commoditys = commodityService.findBytid(tid,index,size);
 		System.out.println(commoditys);
 		Gson gson = new Gson();
 		String commodityGson = gson.toJson(commoditys);
@@ -71,13 +73,10 @@ public class CommodityServlet {
 		return "redirect:/seller.jsp";
 	}
 	@RequestMapping(value="/findBycid.action",produces="application/json;charset=utf-8")
-	@ResponseBody
-	public String findBycid(@RequestParam String cid){
-		System.out.println(cid);
+	public String findBycid(@RequestParam String cid,Map map){
 		Commodity commodity = commodityService.findBycid(Integer.parseInt(cid));
-		Gson gson = new Gson();
-		String com = gson.toJson(commodity);
-		return com;
+		map.put("commodity", commodity);
+		return "commodity_info";
 	}
 	
 	@RequestMapping("/alterCommodity.action")

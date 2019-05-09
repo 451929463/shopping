@@ -5,7 +5,7 @@ import java.util.List;
 import cn.tri.shop.pojo.Commodity;
 
 public interface CommodityService {
-	public List<Commodity> findBytid(int tid);
+	public List<Commodity> findBytid(int tid,int index,int size);
 	public void addCommodity(Commodity commodity);
 	public Commodity findBycid(int id);
 	public void alterCommodity(Commodity commodity);
