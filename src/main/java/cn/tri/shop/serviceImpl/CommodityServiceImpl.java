@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import cn.tri.shop.mapper.CommodityMapper;
 import cn.tri.shop.pojo.Commodity;
+import cn.tri.shop.pojo.PageBean;
 import cn.tri.shop.pojo.ParamLimit;
 import cn.tri.shop.service.CommodityService;
 @Service("commodityServiceImpl")
@@ -20,9 +21,15 @@ public class CommodityServiceImpl implements CommodityService{
 	}
 
 	@Override
-	public List<Commodity> findBytid(int tid,int index,int size) {
-		ParamLimit pl = new ParamLimit(tid, index, size);
-		return commodityMapper.findBytid(pl);
+	public PageBean findBytid(int tid,int pageNum,int pageSize) {
+		int totalRecord = commodityMapper.findBytidCount(tid);
+		System.out.println(pageNum+"---------------");
+		PageBean pb = new PageBean(pageNum, pageSize, totalRecord);
+		int startIndex = pb.getStartIndex();
+		System.out.println(startIndex+"=================================");
+		ParamLimit pl = new ParamLimit(tid, startIndex, pageSize);
+		pb.setList(commodityMapper.findBytid(pl));
+		return pb;
 	}
 
 

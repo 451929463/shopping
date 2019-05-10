@@ -124,7 +124,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	  				data:"",
   	  				success:function(data){
   	  					$(data).each(function(){
-  	  						$("ul").append("<a onclick='findByTid("+this.tid+",1,10)'><li>"+this.tname+"管理</li></a>");
+  	  						$("ul").append("<a onclick='findByTid("+this.tid+",1,3)'><li>"+this.tname+"管理</li></a>");
   	  					});
   	  				},
   	  				error:function(){
@@ -146,6 +146,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		});
   		function findByTid(tid,index,size){
   			alterNO();
+  			alert(tid+"---"+index+"---"+size);
 			//获取tr之后的所有兄弟标签，并删除。
   			$(".tr").nextAll().remove();
   			$.ajax({
@@ -154,23 +155,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   				dataType:"json",
   				data:{"tid":tid,"index":index,"size":size},
   				success:function(data){
-  					if(data.length > 0){
-  						for(var index in data){
+  					 list = data.list;
+  						 for(var index in list){
   							$tr=$("<tr class='new_tr'><td>"+index+1+
-  									"</td><td>"+data[index].cname+
-  									" </td><td>"+data[index].info+
-  									" </td><td>"+data[index].marketPrice+
-  									" </td><td>"+data[index].shopPrice+
-  									" </td><td>"+data[index].hot+
-  									"</td><td>"+data[index].putaway+
-  									"</td><td>"+data[index].t_id+
-  									" </td><td><img src='/commodity/"+data[index].pictrueAddress+"'></img>"+data[index].pictrueAddress+
-  									"</td><td class='pointer' onclick='alter("+data[index].cid+")'>编辑</td><td class='pointer'><a href='commodity/deleteCommodity.action?cid="+data[index].cid+"&t_id="+data[index].t_id+"'>删除</a></td></tr>");
+  									"</td><td>"+list[index].cname+
+  									" </td><td>"+list[index].info+
+  									" </td><td>"+list[index].marketPrice+
+  									" </td><td>"+list[index].shopPrice+
+  									" </td><td>"+list[index].hot+
+  									"</td><td>"+list[index].putaway+
+  									"</td><td>"+list[index].t_id+
+  									" </td><td><img src='/commodity/"+list[index].pictrueAddress+"'></img>"+list[index].pictrueAddress+
+  									"</td><td class='pointer' onclick='alter("+list[index].cid+")'>编辑</td><td class='pointer'><a href='commodity/deleteCommodity.action?cid="+list[index].cid+"&t_id="+list[index].t_id+"'>删除</a></td></tr>");
   							$("table").append($tr);                          
   						}
-  						
   						$("table").prop("class","show");
-  					}
+  						//https://www.cnblogs.com/whgk/p/6474396.html
+  						$("p").text("总记录:"+data.totalRecord+"总页数:"+data.totalPage+"当前页数:"+data.pageNum);
+  									 //onclick='findByTid("+this.tid+",1,3)'startIndex
+  						var $down = $("<a onclick='findByTid("+tid+","+data.startIndex+2+","+data.pageSize+")'>下一页</a>");
+  						var $up = $("<a href='#'>上一页</a>");
+  						//如果是第一页
+  						if(data.pageNum == 1){
+  							$("#table").append($down);
+  						}
+  						//既不是第一页和最后一页
+  						if(data.pageNum != 1 && data.pageNum != totalPage){
+  							
+  						}
+  						//如果是最后一页
+  						if(data.pageNum == totalPage ){
+  							$("#table").append($up);
+  						}
   				},
   				error:function(){
   					alert("网络连接超时，请稍后查询");
@@ -253,7 +269,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   					<td>删除</td>
   				</tr>
   				</table>
-  				<button id="btn" class="hidd">下一页</button>
+  				<p></p>
   			</div> 
   			
   			<div id="alter_value">

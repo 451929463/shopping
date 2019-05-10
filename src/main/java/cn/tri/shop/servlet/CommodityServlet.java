@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 
 import cn.tri.shop.pojo.Commodity;
+import cn.tri.shop.pojo.PageBean;
 import cn.tri.shop.service.CommodityService;
 
 @Controller
@@ -39,11 +40,11 @@ public class CommodityServlet {
 	@ResponseBody
 	public String findBytid(@RequestParam int tid,@RequestParam int index,@RequestParam int size){
 		System.out.println(tid+"---"+index+"---"+size);
-		List<Commodity> commoditys = commodityService.findBytid(tid,index,size);
-		System.out.println(commoditys);
+		PageBean pb = commodityService.findBytid(tid,index,size);
+		System.out.println(pb);
 		Gson gson = new Gson();
-		String commodityGson = gson.toJson(commoditys);
-		return commodityGson;
+		String pbGson = gson.toJson(pb);
+		return pbGson;
 	}
 	
 	/**

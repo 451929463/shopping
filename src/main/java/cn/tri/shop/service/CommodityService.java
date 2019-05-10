@@ -3,9 +3,10 @@ package cn.tri.shop.service;
 import java.util.List;
 
 import cn.tri.shop.pojo.Commodity;
+import cn.tri.shop.pojo.PageBean;
 
 public interface CommodityService {
-	public List<Commodity> findBytid(int tid,int index,int size);
+	public PageBean findBytid(int tid,int index,int size);
 	public void addCommodity(Commodity commodity);
 	public Commodity findBycid(int id);
 	public void alterCommodity(Commodity commodity);

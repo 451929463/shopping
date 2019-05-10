@@ -6,6 +6,7 @@ import cn.tri.shop.pojo.Commodity;
 import cn.tri.shop.pojo.ParamLimit;
 
 public interface CommodityMapper {
+	public int findBytidCount(int tid);
 	public List<Commodity> findBytid(ParamLimit pl);
 	public void addCommodity(Commodity commodity);
 	public Commodity findBycid(int id);
