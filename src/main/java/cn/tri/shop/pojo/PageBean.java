@@ -28,7 +28,7 @@ public class PageBean {
 			this.totalPage = totalRecord/pageSize+1;
 		}
 
-		this.startIndex = (pageNum - 1)*pageSize;
+		this.startIndex = (pageNum-1)*pageSize;
 		//初始值
 		this.start = 1;
 		this.end = 5;
@@ -37,7 +37,7 @@ public class PageBean {
 		}else{
 			this.start = pageNum - 2;
 			this.end = pageNum + 2;
-			if(start < 0){
+			if(start <= 0){
 				this.start = 1;
 				this.end = 5;
 			}

@@ -67,7 +67,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	#seller{
 		position: absolute;
 		top:15px;
-		right: 350px;
+		right: 450px;
 	}
 	#login{
 		position: absolute;
@@ -79,24 +79,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		top:15px;
 		right: 150px;
 	}
-	#scope_value{
-		position: absolute;
-		top:15px;
-		right: 250px;
-	}
-	#loginOut{
-		position: absolute;
-		top:15px;
-		right: 200px;
-	}
 	.li_Type{
+	/* 	clear:right; */
 		margin:0 auto;
 		cursor:pointer;
 		background-color:red;
 		list-style:none;
-		float: left;
+		float: left; 
 		display: inline-block;
-		//width: 250px;
+		width: 250px;
 		height: 60px;
 		text-align: center;
 		line-height: 60px;
@@ -107,16 +98,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 	#type_ul{
 		position: relative;
-		left:25px;
+		left:49px;
+	}
+	a{
+		margin-left: 15px;
+	}
+	#p_content{
+		position: absolute;
+		right: 100px;
+		top:15px;
 	}
 </style>
   <script type="text/javascript">
-  	$(document).ready(function(){
+  	$(function(){
   		$.ajax({
 			type:"get",
 			url:"typeCommodity/findAll.action",
 			dataType:"json",
-		/* 	contentType: "application/json;charset=utf-8", */
 			data:"",
 			success:function(data){
 				var arr = data;
@@ -126,7 +124,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					$("ul").append($li);
 				}
 				$("li").attr("class","li_Type");
-				$("li").css("width",1300/len);
+				$("li").css("width",1250/len);
 			},
 			error:function(){
 				alert("error");
@@ -158,7 +156,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			<a id="login" href="#">登陆</a><a id="reg" href="#">注册</a>
   		</c:if>
   		<c:if test="${not empty sessionScope.user }">
+  			<p id="p_content">
   			<font id="scope_value"><c:out value="${sessionScope.user.uname }"></c:out>,你好</font> <a id="loginOut" href="/shopping/admin/loginOut.action">退出</a>
+  			<a href='#'>购物车</a><a href='#'>我的订单</a>
+  			<p>
   		</c:if>
   		
   		<div class="user">
@@ -184,9 +185,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<button class="cancel" type="button">取消</button>
 			</form>
 		</div>
-		<c:forEach items="${requestScope.list }" var="typeCommodity">
-				${typeCommodity.tname}
-		</c:forEach>
+		<%-- <c:forEach items="${requestScope.list }" var="typeCommodity">
+				${typeCommodity.tname}wesfdgjhkgjghfdgfhkjlgjgfdfsghj
+		</c:forEach> --%>
 		<ul id="type_ul"></ul>
 </body>
 </html>

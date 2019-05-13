@@ -101,6 +101,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			width:187px;
   			height:70px;
   		}
+  		a{
+  			cursor: pointer;
+  		}
+  		.num{
+  			margin-left: 30px;
+  		}
+  		#a_red{
+  			color: red;
+  		}
 	</style>
   </head>
   <script type="text/javascript" src="js/jquery-3.1.1.js" ></script>
@@ -124,7 +133,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	  				data:"",
   	  				success:function(data){
   	  					$(data).each(function(){
-  	  						$("ul").append("<a onclick='findByTid("+this.tid+",1,3)'><li>"+this.tname+"管理</li></a>");
+  	  						$("ul").append("<a onclick='findByTid("+this.tid+",1,2)'><li>"+this.tname+"管理</li></a>");
   	  					});
   	  				},
   	  				error:function(){
@@ -144,16 +153,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				$("#upload_value").show();
 			});
   		});
-  		function findByTid(tid,index,size){
+  		function findByTid(tid,pageNum,pageSize){
   			alterNO();
-  			alert(tid+"---"+index+"---"+size);
 			//获取tr之后的所有兄弟标签，并删除。
   			$(".tr").nextAll().remove();
   			$.ajax({
   				type:"post",
   				url:"commodity/findBytid.action",
   				dataType:"json",
-  				data:{"tid":tid,"index":index,"size":size},
+  				data:{"tid":tid,"pageNum":pageNum,"pageSize":pageSize},
   				success:function(data){
   					 list = data.list;
   						 for(var index in list){
@@ -171,21 +179,55 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   						}
   						$("table").prop("class","show");
   						//https://www.cnblogs.com/whgk/p/6474396.html
-  						$("p").text("总记录:"+data.totalRecord+"总页数:"+data.totalPage+"当前页数:"+data.pageNum);
-  									 //onclick='findByTid("+this.tid+",1,3)'startIndex
-  						var $down = $("<a onclick='findByTid("+tid+","+data.startIndex+2+","+data.pageSize+")'>下一页</a>");
-  						var $up = $("<a href='#'>上一页</a>");
+  						$("#down").remove();
+  						$("#up").remove();
+  						$(".num").remove();
+  						$("#titleLimit").remove();
+  						var $p = $("<p id='titleLimit'>总记录:"+data.totalRecord+"总页数:"+data.totalPage+"当前页数:"+data.pageNum+"</p>");
+  					 	$("#table").append($p);			
+  						var pageNumDown = data.pageNum+1;
+  						var pageNumUp = data.pageNum-1;
+  						var $down = $("<a id='down' onclick='findByTid("+tid+","+pageNumDown+","+data.pageSize+")'>下一页</a>");
+  						var $up = $("<a id='up' onclick='findByTid("+tid+","+pageNumUp+","+data.pageSize+")'>上一页</a>");
+  						
+  	
+  						
   						//如果是第一页
   						if(data.pageNum == 1){
+  							for(var i=data.start ; i <= data.end ; i++ ){
+								if(i == data.pageNum){
+									 $a = $("<a id='a_red' class='num' onclick='findByTid("+tid+","+i+","+data.pageSize+")'>"+i+"</a>");
+								}else{
+									$a= $("<a class='num' onclick='findByTid("+tid+","+i+","+data.pageSize+")'>"+i+"</a>");
+								}
+								$("#table").append($a);
+							}
   							$("#table").append($down);
   						}
   						//既不是第一页和最后一页
-  						if(data.pageNum != 1 && data.pageNum != totalPage){
-  							
+  						if(data.pageNum != 1 && data.pageNum != data.totalPage){
+  							$("#table").append($up);
+  							for(var i=data.start ; i <= data.end ; i++ ){
+								if(i == data.pageNum){
+									 $a = $("<a id='a_red' class='num' onclick='findByTid("+tid+","+i+","+data.pageSize+")'>"+i+"</a>");
+								}else{
+									$a= $("<a class='num' onclick='findByTid("+tid+","+i+","+data.pageSize+")'>"+i+"</a>");
+								}
+								$("#table").append($a);
+							}
+  							$("#table").append($down);
   						}
   						//如果是最后一页
-  						if(data.pageNum == totalPage ){
+  						if(data.pageNum == data.totalPage ){
   							$("#table").append($up);
+  							for(var i=data.start ; i <= data.end ; i++ ){
+								if(i == data.pageNum){
+									 $a = $("<a id='a_red' class='num' onclick='findByTid("+tid+","+i+","+data.pageSize+")'>"+i+"</a>");
+								}else{
+									$a= $("<a class='num' onclick='findByTid("+tid+","+i+","+data.pageSize+")'>"+i+"</a>");
+								}
+								$("#table").append($a);
+							}
   						}
   				},
   				error:function(){
@@ -269,7 +311,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   					<td>删除</td>
   				</tr>
   				</table>
-  				<p></p>
   			</div> 
   			
   			<div id="alter_value">

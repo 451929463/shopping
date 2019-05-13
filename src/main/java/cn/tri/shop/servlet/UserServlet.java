@@ -51,7 +51,7 @@ public class UserServlet {
 		if(u.getActivestatus() == 0){
 			MyUtil.avtiveEmail(u);
 			map.put("status", "您的账号未激活，请前往您绑定的的邮箱点击链接激活！");
-			return "MyJsp";
+			return "forward:MyJsp.jsp";
 		}
 		if(whether.equals("ok")){
 			cookieAction(uname, req, resp);

@@ -103,8 +103,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  		<font id="cname">${requestScope.commodity.cname}</font>
 	  		<p id="market">市场价：<font class="price"><del>${requestScope.commodity.marketPrice}</del></font></p>
 	  		<p id="shop"> 商 城 价： <font class="price">${requestScope.commodity.shopPrice}</font></p>
-   			<div id="buy">立即购买</div>
-   			<div id="car">加入购物车</div>
+			<form action="cut/addCatItem.action" method="POST">
+				<input type="hidden" name="id" value="${requestScope.commodity.cid}">
+				<input type="hidden" name="name" value="${requestScope.commodity.cname}">
+				<input type="hidden" name="pictrueAddress" value="${requestScope.commodity.pictrueAddress}">
+				商品数量：<input type="text" name="commodityNum" value=1>
+			</form>
+   			<div id="buy" >立即购买</div>
+   			<div id="car" onclick="">加入购物车</div>
    			
    			<div id="info">
    				${requestScope.commodity.info}

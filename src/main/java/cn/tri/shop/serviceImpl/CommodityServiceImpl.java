@@ -23,10 +23,8 @@ public class CommodityServiceImpl implements CommodityService{
 	@Override
 	public PageBean findBytid(int tid,int pageNum,int pageSize) {
 		int totalRecord = commodityMapper.findBytidCount(tid);
-		System.out.println(pageNum+"---------------");
 		PageBean pb = new PageBean(pageNum, pageSize, totalRecord);
 		int startIndex = pb.getStartIndex();
-		System.out.println(startIndex+"=================================");
 		ParamLimit pl = new ParamLimit(tid, startIndex, pageSize);
 		pb.setList(commodityMapper.findBytid(pl));
 		return pb;

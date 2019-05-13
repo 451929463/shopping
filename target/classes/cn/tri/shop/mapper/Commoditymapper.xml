@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="cn.tri.shop.mapper.CommodityMapper">
  	<select id="findBytidCount" parameterType="int" resultType="int">
- 		select count(*) from commodity where t_id
+ 		select count(*) from commodity where t_id = #{tid}
  	</select>
  
  	<select id="findBytid" parameterType="cn.tri.shop.pojo.ParamLimit" resultType="cn.tri.shop.pojo.Commodity">

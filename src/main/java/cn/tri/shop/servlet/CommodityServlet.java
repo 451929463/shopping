@@ -38,10 +38,8 @@ public class CommodityServlet {
 	
 	@RequestMapping(value="/findBytid.action",produces="application/json; charset=utf-8")
 	@ResponseBody
-	public String findBytid(@RequestParam int tid,@RequestParam int index,@RequestParam int size){
-		System.out.println(tid+"---"+index+"---"+size);
-		PageBean pb = commodityService.findBytid(tid,index,size);
-		System.out.println(pb);
+	public String findBytid(@RequestParam int tid,@RequestParam int pageNum,@RequestParam int pageSize){
+		PageBean pb = commodityService.findBytid(tid,pageNum,pageSize);
 		Gson gson = new Gson();
 		String pbGson = gson.toJson(pb);
 		return pbGson;
