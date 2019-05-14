@@ -158,7 +158,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		<c:if test="${not empty sessionScope.user }">
   			<p id="p_content">
   			<font id="scope_value"><c:out value="${sessionScope.user.uname }"></c:out>,你好</font> <a id="loginOut" href="/shopping/admin/loginOut.action">退出</a>
-  			<a href='#'>购物车</a><a href='#'>我的订单</a>
+  			<a href='car.jsp'>购物车</a><a href='#'>我的订单</a>
   			<p>
   		</c:if>
   		

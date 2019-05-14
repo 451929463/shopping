@@ -95,7 +95,6 @@ public class CommodityServlet {
 		List<Commodity> list = commodityService.findByHot(hot);
 		Gson gson = new Gson();
 		String commoditys = gson.toJson(list);
-		System.out.println(commoditys);
 		return commoditys;
 	}
 }

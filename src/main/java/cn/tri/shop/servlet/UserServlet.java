@@ -36,7 +36,6 @@ public class UserServlet {
 
 	@RequestMapping("/addUser.action")
 	public String addUser(User user,SessionStatus sessionStatus){
-		System.out.println(user.getEmail()+user.getUname());
 		userService.addUser(user);
 		sessionStatus.setComplete();
 		return "redirect:/index.jsp";
@@ -51,7 +50,7 @@ public class UserServlet {
 		if(u.getActivestatus() == 0){
 			MyUtil.avtiveEmail(u);
 			map.put("status", "您的账号未激活，请前往您绑定的的邮箱点击链接激活！");
-			return "forward:MyJsp.jsp";
+			return "forward:/MyJsp.jsp";
 		}
 		if(whether.equals("ok")){
 			cookieAction(uname, req, resp);
@@ -62,7 +61,6 @@ public class UserServlet {
 	
 	@RequestMapping("/activeEmail.action")
 	public String activeEmail(@RequestParam String email , @RequestParam String code,Map<String,String> map){
-		System.out.println(email+code);
 		User user = new User();
 		user.setActivenum(Integer.parseInt(code));
 		user.setEmail(email);
@@ -80,10 +78,7 @@ public class UserServlet {
 	@RequestMapping("loginOut.action")
 	public String loginOut(HttpServletRequest req,SessionStatus sessionStatus){
 		req.removeAttribute("user");
-		System.out.println("req"+req.getAttribute("user"));
-		System.out.println(req.getSession().getAttribute("user"));
 		sessionStatus.setComplete();
-		System.out.println(req.getSession().getAttribute("user"));
 		
 		//清除session
 		/*req.getSession().removeAttribute("user");

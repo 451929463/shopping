@@ -40,6 +40,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			left: 650px;
 			font-size: 30px;
 		}
+		#items{
+			position: absolute;
+			top: 230px;
+			left: 650px;
+		}
+		#count{
+			width: 200px;
+			height: 45px;
+			border: 0px;
+			font-size: 28px;
+			background-color:#F0F0F0;
+			text-align: center;
+		}
+		#fon{
+			font-size:30px;
+			color: #FF5151;
+		}
+		
 		#market{
 			position: absolute;
 			top: 100px;
@@ -63,7 +81,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		#buy{
 			position:absolute;
-			top: 250px;
+			top: 300px;
 			left: 650px;
 			width: 136px;
 			height: 46px;
@@ -75,7 +93,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		#car{
 			position:absolute;
-			top: 250px;
+			top: 300px;
 			left: 800px;
 			width: 182px;
 			height: 46px;
@@ -96,21 +114,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 	</style>
   </head>
-  
+  <script type="text/javascript" src="js/jquery-3.1.1.js"></script>
+  <script type="text/javascript">
+  	$(function(){
+  		
+  	});
+  	function cat(){
+  		$("#items").submit();
+  	}
+  </script>
   <body>
   		<div id="commodity_div">
   			<img alt="hot" id="commodity_id" src='/commodity/${requestScope.commodity.pictrueAddress}'>
 	  		<font id="cname">${requestScope.commodity.cname}</font>
 	  		<p id="market">市场价：<font class="price"><del>${requestScope.commodity.marketPrice}</del></font></p>
 	  		<p id="shop"> 商 城 价： <font class="price">${requestScope.commodity.shopPrice}</font></p>
-			<form action="cut/addCatItem.action" method="POST">
+			<form id='items' action="car/addCarItem.action" method="POST">
 				<input type="hidden" name="id" value="${requestScope.commodity.cid}">
 				<input type="hidden" name="name" value="${requestScope.commodity.cname}">
+				<input type="hidden" name="shopPrices" value="${requestScope.commodity.shopPrice}">
 				<input type="hidden" name="pictrueAddress" value="${requestScope.commodity.pictrueAddress}">
-				商品数量：<input type="text" name="commodityNum" value=1>
+				<font id="fon">商品数量：</font><input id="count" type="text" name="commodityNum" value=1>
 			</form>
    			<div id="buy" >立即购买</div>
-   			<div id="car" onclick="">加入购物车</div>
+   			<div id="car" onclick="cat()">加入购物车</div>
    			
    			<div id="info">
    				${requestScope.commodity.info}

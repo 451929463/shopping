@@ -1,6 +1,8 @@
 package cn.tri.shop.pojo;
 
-public class CutItem {
+import java.io.Serializable;
+
+public class CarItem implements Serializable{
 	private int id;//暂时作为map的id
 	private String name;
 	private String pictrueAddress;
@@ -36,7 +38,7 @@ public class CutItem {
 	public void setCommodityNum(int commodityNum) {
 		this.commodityNum = commodityNum;
 	}
-	public CutItem(int id, String name, String pictrueAddress, int shopPrices,
+	public CarItem(int id, String name, String pictrueAddress, int shopPrices,
 			int commodityNum) {
 		super();
 		this.id = id;
@@ -45,13 +47,13 @@ public class CutItem {
 		this.shopPrices = shopPrices;
 		this.commodityNum = commodityNum;
 	}
-	public CutItem() {
+	public CarItem() {
 		super();
 	}
 	@Override
 	public String toString() {
 		return "CatItem [id=" + id + ", name=" + name + ", pictrueAddress="
-				+ pictrueAddress + ", shopPrice=" + shopPrices
+				+ pictrueAddress + ", shopPrices=" + shopPrices
 				+ ", commodityNum=" + commodityNum + "]";
 	}
 	
